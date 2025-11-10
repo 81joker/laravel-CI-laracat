@@ -34,7 +34,7 @@ jobs:
       - name: Push Changes Back to Repository
         run: |
           git config  user.name "gh-actions"
-          git config 
+          git config  user.email "gh-actions@example.com"
           git add .
           git commit -m "Apply Laravel Pint fixes"
           git push

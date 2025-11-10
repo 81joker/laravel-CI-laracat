@@ -1,26 +1,27 @@
 name: Laravel Pint
 
 on:
-  pull_request
+  pull_request:
 
+permissions:
+  contents: write
 
 jobs:
   laravel-pint:
-
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ceckout Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: install php and composer 
+      - name: Install PHP and Composer
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          # extensions: mbstring, bcmath, sqlite
           tools: composer:v2
 
-
+      - name: Install Dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
 
       - name: Install Pint
         run: composer require laravel/pint --dev
@@ -28,6 +29,12 @@ jobs:
       - name: Run Laravel Pint
         run: vendor/bin/pint --test
 
-      - name: Push Changes Back to Repository
-        run: echo "TODO"
-      
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Apply Laravel Pint fixes"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

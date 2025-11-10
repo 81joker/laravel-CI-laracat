@@ -1,7 +1,7 @@
 name: Laravel Pint
 
 on:
-  pull_request
+  pull_request:
 
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
 
 
       - name: Install Pint
-        run: composer require laravel/pint 
+        run: composer require laravel/pint --dev
 
       - name: Run Laravel Pint
         run: vendor/bin/pint --test

@@ -23,7 +23,7 @@ jobs:
 
 
       - name: Install Pint
-        run: composer require laravel/pint --dev
+        run: composer require laravel/pint 
 
       - name: Run Laravel Pint
         run: vendor/bin/pint --test

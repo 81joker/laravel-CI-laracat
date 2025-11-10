@@ -1,27 +1,26 @@
-name: Laravel Pint
+name: Laravel Pint Check
 
 on:
   pull_request:
+  push:
+    branches: [ main, master, develop ]
 
 jobs:
-  laravel-pint:
+  laravel-pint-check:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install PHP and Composer
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2' # Change to a stable version if 8.3 is not available
+          php-version: '8.3'
           tools: composer:v2
 
-      - name: Install Pint
-        run: composer require laravel/pint --dev
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Run Laravel Pint
+      - name: Run Laravel Pint Check
         run: vendor/bin/pint --test
-
-      - name: Placeholder Step
-        run: echo "TODO"

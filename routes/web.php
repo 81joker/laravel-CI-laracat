@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function ()
+ {
+    $users = App\Models\User::all();
+    return view('welcome', ['users'
+     => $users]
+    );
 });

@@ -36,6 +36,6 @@ jobs:
           git config  user.name "gh-actions"
           git config 
           git add .
-          git commit -m 'Apply Laravel Pint fixes' || echo "No changes to commit"
+          git commit -m "Apply Laravel Pint fixes"
           git push
       

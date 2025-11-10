@@ -3,24 +3,19 @@ name: Laravel Pint
 on:
   pull_request:
 
-
 jobs:
   laravel-pint:
-
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: install php and composer 
+      - name: Install PHP and Composer
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
-          # extensions: mbstring, bcmath, sqlite
+          php-version: '8.2' # Change to a stable version if 8.3 is not available
           tools: composer:v2
-
-
 
       - name: Install Pint
         run: composer require laravel/pint --dev
@@ -28,6 +23,5 @@ jobs:
       - name: Run Laravel Pint
         run: vendor/bin/pint --test
 
-      - name: Push Changes Back to Repository
+      - name: Placeholder Step
         run: echo "TODO"
-      

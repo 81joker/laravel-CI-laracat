@@ -10,6 +10,15 @@ jobs:
   run-laravel-tests:
 
     runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        ports :
+          - 3306:3306
+        env:
+          MYSQL_DATABASE: laravel
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
 
     steps:
       - name: Checkout Code

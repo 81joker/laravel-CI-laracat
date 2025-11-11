@@ -32,7 +32,6 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
-          php artisan migrate --force
       
       - name: Run Tests
         run: php artisan test  --compact --colors=always

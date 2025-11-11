@@ -35,5 +35,5 @@ jobs:
           php artisan migrate --force
       
       - name: Run Tests
-        run: vendor/bin/test  --compact --colors=always
+        run: php artisan test  --compact --colors=always
  

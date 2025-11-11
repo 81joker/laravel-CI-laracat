@@ -26,7 +26,7 @@ jobs:
 
 
       - name: Install Dependencies
-        run: composer install -q --no--ineteraction
+        run: composer install -q --no--interaction 
 
       - name: Prep Environment
         run: |

@@ -34,5 +34,5 @@ jobs:
           php artisan key:generate
       
       - name: Run Tests
-        run: php artisan test  --compact --colors=always
+        run: php artisan test  
  

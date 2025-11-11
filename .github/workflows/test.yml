@@ -3,9 +3,7 @@ name: Laravel Test
 on:
   pull_request
 
-permissions:
-  contents: write
-  pull-requests: write
+
 
 jobs:
   laravel-pint:

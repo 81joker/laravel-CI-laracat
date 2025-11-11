@@ -1,0 +1,43 @@
+name: Laravel Pint
+
+on:
+  pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  laravel-pint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: install php and composer 
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          # extensions: mbstring, bcmath, sqlite
+          tools: composer:v2
+
+
+
+      - name: Install Pint
+        run: composer require laravel/pint --dev
+
+      - name: Run Laravel Pint
+        run: vendor/bin/pint --test
+
+      - name: Push Changes Back to Repository
+        run: |
+          git config user.name "gh-actions"
+          git config user.email "gh@laracasts.com"
+          git add .
+          git commit -m "Laravel Pint" || exit 0
+          git push
+      

@@ -1,20 +1,20 @@
 name: Laravel Test
 
 on:
-  pull_request
+  pull_request:
+  push:
 
 
 
 jobs:
-  laravel-pint:
+  run-laravel-tests:
 
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
+        
 
       - name: install php and composer 
         uses: shivammathur/setup-php@v2
@@ -25,17 +25,15 @@ jobs:
 
 
 
-      - name: Install Pint
-        run: composer require laravel/pint --dev
+      - name: Install Dependencies
+        run: composer install -q --no--ineteraction
 
-      - name: Run Laravel Pint
-        run: vendor/bin/pint --test
-
-      - name: Push Changes Back to Repository
+      - name: Prep Environment
         run: |
-          git config user.name "gh-actions"
-          git config user.email "gh@laracasts.com"
-          git add .
-          git commit -m "Laravel Pint" || exit 0
-          git push
+          cp .env.example .env
+          php artisan key:generate
+          php artisan migrate --force
       
+      - name: Run Tests
+        run: vendor/bin/test  --compact --colors=always
+ 

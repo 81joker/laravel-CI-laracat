@@ -46,6 +46,8 @@ jobs:
           # path: vendor
           # Create a unique key for the cache based on OS and composer.lock file
           key: composer-${{ hashFiles('**/composer.lock') }}
+          # If key is not found, restore from the following
+          restore-keys: composer-cache-
         
 
 

@@ -1,0 +1,46 @@
+name: Caching Composer
+on:
+  pull_request:
+  push:
+
+
+
+jobs:
+  caching-composer:
+
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        ports :
+          - 3306:3306
+        env:
+          MYSQL_DATABASE: laravel
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+
+      - name: install php and composer 
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          # extensions: mbstring, bcmath, sqlite
+          tools: composer:v2
+
+
+
+      - name: Install Dependencies
+        run: composer install -q -n
+
+      - name: Prep Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+      
+      - name: Run Tests
+        run: php artisan test  
+ 

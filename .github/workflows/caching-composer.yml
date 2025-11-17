@@ -3,8 +3,6 @@ on:
   pull_request:
   push:
 
-
-
 jobs:
   caching-composer:
 
@@ -18,6 +16,11 @@ jobs:
         env:
           MYSQL_DATABASE: laravel
           MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    env:
+      PHP_VERSION: '8.4'
+      PHP_EXTENSIONS: mbstring, bcmath, sqlite
+
+
 
     steps:
       - name: Checkout Code
@@ -27,7 +30,7 @@ jobs:
       - name: install php and composer 
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: ${ { env.PHP_VERSION } }
           # extensions: mbstring, bcmath, sqlite
           tools: composer:v2
 
@@ -41,7 +44,7 @@ jobs:
       - name: Cache Composer Dependencies
         uses: actions/cache@v4.3.0
         with:
-          # This path to be cached
+          # This path to be cached 
           path: ${{ steps.composer-cache-dir.outputs.dir }}
           # path: vendor
           # Create a unique key for the cache based on OS and composer.lock file
@@ -62,4 +65,4 @@ jobs:
       
       - name: Run Tests
         run: php artisan test  
- 
+

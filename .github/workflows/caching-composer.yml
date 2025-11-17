@@ -30,7 +30,7 @@ jobs:
       - name: install php and composer 
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${ { env.PHP_VERSION } }
+          php-version: ${{ env.PHP_VERSION }}
           # extensions: mbstring, bcmath, sqlite
           tools: composer:v2
 
